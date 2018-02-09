@@ -1,26 +1,27 @@
 /**
- * @class ExampleComponent
+ * @function conditionally
  */
 
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react';
 
-import styles from './styles.css'
 
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
+export function conditionally(propsPredicate, WrappedComponent) {
+  class Conditionally extends PureComponent {
+    render() {
+      if (propsPredicate(this.props)) {
+        return <WrappedComponent {...this.props} />;
+      }
+      return null;
+    }
   }
 
-  render() {
-    const {
-      text
-    } = this.props
+  const wrappedComponentName = WrappedComponent.displayName
+    || WrappedComponent.name
+    || 'Component';
 
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
+  Conditionally.WrappedComponent = WrappedComponent;
+  Conditionally.displayName = `conditionally(${wrappedComponentName})`;
+  Conditionally.propTypes = WrappedComponent.propTypes;
+
+  return Conditionally;
 }
