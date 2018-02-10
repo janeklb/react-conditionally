@@ -10,6 +10,13 @@
 npm install --save react-conditionally
 ```
 
+## API
+
+### `conditionally(propsPredicate, WrappedComponent)`
+
+- `propsPredicate`: A predicate function that accepts a `props` object as its single argument.
+- `WrappedComponent`: The component to render if `propsPredicate` returns truthy
+
 ## Usage
 
 On it's own:
@@ -26,7 +33,7 @@ export default conditionally(
 
 ```
 
-Or with `react-redux`
+Works well with `react-redux`:
 ```jsx
 import { connect } from 'react-redux'
 import { conditionally } from 'react-conditionally'
@@ -42,6 +49,6 @@ export default connect(mapStateToProps)(
 );
 ```
 
-## License
+---
 
-MIT © [Janek Lasocki-Biczysko](https://github.com/janeklb)
+Boilerplate'd from [react-modern-library-boilerplate](https://github.com/transitive-bullshit/react-modern-library-boilerplate)
