@@ -4,22 +4,12 @@ import resolve from 'rollup-plugin-node-resolve'
 
 import pkg from './package.json'
 
-export default {
+const external = ['react', 'react-dom'];
+
+export default [{
   input: 'src/index.js',
-  output: [
-    {
-      file: pkg.main,
-      format: 'cjs'
-    },
-    {
-      file: pkg.module,
-      format: 'es'
-    }
-  ],
-  external: [
-    'react',
-    'react-dom'
-  ],
+  output: { file: pkg.main, format: 'cjs' },
+  external,
   plugins: [
     babel({
       exclude: 'node_modules/**'
@@ -27,4 +17,12 @@ export default {
     resolve(),
     commonjs()
   ]
-}
+}, {
+  input: 'src/index.js',
+  output: { file: pkg.module, format: 'es' },
+  external,
+  plugins: [
+    resolve(),
+    commonjs()
+  ]
+}];
