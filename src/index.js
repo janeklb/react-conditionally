@@ -1,17 +1,11 @@
-/**
- * @function conditionally
- */
-
 import React, { PureComponent } from 'react';
-
 
 export function conditionally(propsPredicate, WrappedComponent) {
   class Conditionally extends PureComponent {
     render() {
-      if (propsPredicate(this.props)) {
-        return <WrappedComponent {...this.props} />;
-      }
-      return null;
+      return propsPredicate(this.props)
+        ? React.createElement(WrappedComponent, this.props)
+        : null;
     }
   }
 
